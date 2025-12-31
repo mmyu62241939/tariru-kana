@@ -1,0 +1,770 @@
+/* 基本スタイル */
+* {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+}
+
+:root {
+    --green: #4CAF50;
+    --green-light: #E8F5E9;
+    --red: #F44336;
+    --red-light: #FFEBEE;
+    --blue: #2196F3;
+    --blue-light: #E3F2FD;
+    --gray: #9E9E9E;
+    --gray-light: #F5F5F5;
+    --text-dark: #333333;
+    --text-light: #666666;
+    --white: #FFFFFF;
+    --shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+}
+
+html {
+    font-size: 18px;
+}
+
+body {
+    font-family: 'Hiragino Sans', 'Hiragino Kaku Gothic ProN', 'Noto Sans JP', sans-serif;
+    background-color: var(--gray-light);
+    color: var(--text-dark);
+    min-height: 100vh;
+    -webkit-tap-highlight-color: transparent;
+}
+
+#app {
+    max-width: 480px;
+    margin: 0 auto;
+    min-height: 100vh;
+    background-color: var(--white);
+}
+
+/* ヘッダー */
+.header {
+    background-color: var(--green);
+    color: var(--white);
+    padding: 1rem;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    position: sticky;
+    top: 0;
+    z-index: 100;
+    box-shadow: var(--shadow);
+}
+
+.header h1 {
+    font-size: 1.3rem;
+    font-weight: bold;
+}
+
+.header-btn {
+    background: var(--white);
+    border: none;
+    border-radius: 50%;
+    width: 48px;
+    height: 48px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    box-shadow: var(--shadow);
+}
+
+.wallet-icon {
+    width: 32px;
+    height: 32px;
+    object-fit: contain;
+}
+
+/* メイン画面 */
+.main-screen {
+    padding: 1rem;
+    padding-bottom: 2rem;
+}
+
+/* 持っているお金の表示 */
+.wallet-summary {
+    background-color: var(--blue-light);
+    border-radius: 12px;
+    padding: 1rem;
+    margin-bottom: 1rem;
+    text-align: center;
+}
+
+.wallet-total .label {
+    display: block;
+    font-size: 0.9rem;
+    color: var(--text-light);
+    margin-bottom: 0.3rem;
+}
+
+.wallet-total .amount {
+    font-size: 2rem;
+    font-weight: bold;
+    color: var(--blue);
+}
+
+/* ステータス表示 */
+.status-display {
+    border-radius: 16px;
+    padding: 1.5rem;
+    margin-bottom: 1rem;
+    text-align: center;
+    transition: all 0.3s ease;
+}
+
+.status-display.can-buy {
+    background-color: var(--green-light);
+    border: 3px solid var(--green);
+}
+
+.status-display.cannot-buy {
+    background-color: var(--red-light);
+    border: 3px solid var(--red);
+}
+
+.status-display.neutral {
+    background-color: var(--gray-light);
+    border: 3px solid var(--gray);
+}
+
+.status-icon {
+    width: 120px;
+    height: 120px;
+    object-fit: contain;
+    margin-bottom: 0.5rem;
+}
+
+.status-text {
+    font-size: 1.8rem;
+    font-weight: bold;
+    margin-bottom: 0.5rem;
+}
+
+.status-display.can-buy .status-text {
+    color: var(--green);
+}
+
+.status-display.cannot-buy .status-text {
+    color: var(--red);
+}
+
+.remaining-amount {
+    font-size: 1.2rem;
+    color: var(--text-light);
+}
+
+/* 商品リスト */
+.product-list-section {
+    background-color: var(--white);
+    border-radius: 12px;
+    padding: 1rem;
+    margin-bottom: 1rem;
+    box-shadow: var(--shadow);
+}
+
+.product-list-section h2 {
+    font-size: 1.1rem;
+    color: var(--text-light);
+    margin-bottom: 0.8rem;
+    padding-bottom: 0.5rem;
+    border-bottom: 1px solid var(--gray-light);
+}
+
+.product-list {
+    list-style: none;
+    max-height: 200px;
+    overflow-y: auto;
+}
+
+.product-item {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 0.8rem 0;
+    border-bottom: 1px dashed var(--gray-light);
+}
+
+.product-item:last-child {
+    border-bottom: none;
+}
+
+.product-price {
+    font-size: 1.3rem;
+    font-weight: bold;
+}
+
+.delete-btn {
+    background-color: var(--red-light);
+    border: none;
+    border-radius: 8px;
+    padding: 0.5rem 1rem;
+    color: var(--red);
+    font-size: 1rem;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    gap: 0.3rem;
+}
+
+.delete-btn:active {
+    background-color: var(--red);
+    color: var(--white);
+}
+
+.product-total {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding-top: 1rem;
+    margin-top: 0.5rem;
+    border-top: 2px solid var(--text-dark);
+    font-size: 1.4rem;
+    font-weight: bold;
+}
+
+.empty-message {
+    text-align: center;
+    color: var(--gray);
+    padding: 2rem 0;
+    font-size: 1rem;
+}
+
+/* 商品追加ボタン */
+.add-buttons {
+    display: flex;
+    gap: 0.5rem;
+    margin-bottom: 1rem;
+}
+
+.add-product-btn {
+    flex: 1;
+    padding: 1rem;
+    background-color: var(--blue);
+    color: var(--white);
+    border: none;
+    border-radius: 12px;
+    font-size: 1.1rem;
+    font-weight: bold;
+    cursor: pointer;
+    box-shadow: var(--shadow);
+}
+
+.add-product-btn:active {
+    background-color: #1976D2;
+    transform: scale(0.98);
+}
+
+.favorites-btn {
+    flex: 1;
+    padding: 1rem;
+    background-color: #FF9800;
+    color: var(--white);
+    border: none;
+    border-radius: 12px;
+    font-size: 1.1rem;
+    font-weight: bold;
+    cursor: pointer;
+    box-shadow: var(--shadow);
+}
+
+.favorites-btn:active {
+    background-color: #F57C00;
+    transform: scale(0.98);
+}
+
+/* 支払いセクション */
+.payment-section {
+    background-color: var(--green-light);
+    border-radius: 12px;
+    padding: 1rem;
+    margin-top: 1rem;
+    border: 2px solid var(--green);
+}
+
+.payment-section h2 {
+    font-size: 1.1rem;
+    color: var(--green);
+    margin-bottom: 1rem;
+    text-align: center;
+}
+
+.payment-list {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.8rem;
+    justify-content: center;
+    margin-bottom: 1rem;
+}
+
+.payment-item {
+    background-color: var(--white);
+    border-radius: 12px;
+    padding: 0.8rem 1.2rem;
+    text-align: center;
+    box-shadow: var(--shadow);
+    min-width: 80px;
+}
+
+.payment-item .money-type {
+    font-size: 1.2rem;
+    font-weight: bold;
+    color: var(--text-dark);
+}
+
+.payment-item .money-count {
+    font-size: 1.5rem;
+    font-weight: bold;
+    color: var(--green);
+}
+
+.change-display {
+    text-align: center;
+    font-size: 1.2rem;
+    color: var(--text-light);
+    margin-bottom: 1rem;
+    padding: 0.5rem;
+    background-color: var(--white);
+    border-radius: 8px;
+}
+
+.pay-btn {
+    width: 100%;
+    padding: 1.2rem;
+    background-color: var(--green);
+    color: var(--white);
+    border: none;
+    border-radius: 12px;
+    font-size: 1.5rem;
+    font-weight: bold;
+    cursor: pointer;
+    box-shadow: var(--shadow);
+}
+
+.pay-btn:active {
+    background-color: #388E3C;
+    transform: scale(0.98);
+}
+
+/* モーダル */
+.modal {
+    display: none;
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.5);
+    z-index: 200;
+    justify-content: center;
+    align-items: flex-end;
+}
+
+.modal.open {
+    display: flex;
+}
+
+.modal-content {
+    background-color: var(--white);
+    width: 100%;
+    max-width: 480px;
+    max-height: 90vh;
+    border-radius: 20px 20px 0 0;
+    overflow: hidden;
+    animation: slideUp 0.3s ease;
+}
+
+@keyframes slideUp {
+    from {
+        transform: translateY(100%);
+    }
+    to {
+        transform: translateY(0);
+    }
+}
+
+.modal-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 1rem 1.2rem;
+    background-color: var(--gray-light);
+    border-bottom: 1px solid #ddd;
+}
+
+.modal-header h2 {
+    font-size: 1.2rem;
+}
+
+.modal-close {
+    background: none;
+    border: none;
+    font-size: 2rem;
+    color: var(--gray);
+    cursor: pointer;
+    padding: 0;
+    line-height: 1;
+}
+
+.modal-body {
+    padding: 1rem;
+    max-height: 60vh;
+    overflow-y: auto;
+}
+
+.modal-footer {
+    padding: 1rem;
+    border-top: 1px solid #ddd;
+}
+
+/* 財布入力モーダル */
+.money-input-group h3 {
+    font-size: 1rem;
+    color: var(--text-light);
+    margin-bottom: 0.8rem;
+    padding-bottom: 0.3rem;
+    border-bottom: 1px solid var(--gray-light);
+}
+
+.money-input-group {
+    margin-bottom: 1.5rem;
+}
+
+.money-row {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 0.6rem 0;
+}
+
+.money-row label {
+    font-size: 1.1rem;
+    font-weight: bold;
+    min-width: 80px;
+}
+
+.money-label {
+    min-width: 120px;
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+}
+
+.money-img {
+    width: 50px;
+    height: 35px;
+    object-fit: contain;
+}
+
+.money-text {
+    font-size: 0.9rem;
+    font-weight: bold;
+    color: var(--text-dark);
+}
+
+.counter {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+}
+
+.counter-btn {
+    width: 48px;
+    height: 48px;
+    border: none;
+    border-radius: 50%;
+    font-size: 1.5rem;
+    font-weight: bold;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.counter-btn.minus {
+    background-color: var(--red-light);
+    color: var(--red);
+}
+
+.counter-btn.plus {
+    background-color: var(--green-light);
+    color: var(--green);
+}
+
+.counter-btn:active {
+    transform: scale(0.9);
+}
+
+.counter input {
+    width: 60px;
+    text-align: center;
+    font-size: 1.3rem;
+    font-weight: bold;
+    border: 2px solid var(--gray-light);
+    border-radius: 8px;
+    padding: 0.5rem;
+}
+
+.wallet-modal-total {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 1rem;
+    background-color: var(--blue-light);
+    border-radius: 12px;
+    font-size: 1.3rem;
+    font-weight: bold;
+    color: var(--blue);
+}
+
+.save-btn {
+    width: 100%;
+    padding: 1.2rem;
+    background-color: var(--blue);
+    color: var(--white);
+    border: none;
+    border-radius: 12px;
+    font-size: 1.3rem;
+    font-weight: bold;
+    cursor: pointer;
+}
+
+.save-btn:active {
+    background-color: #1976D2;
+}
+
+/* 商品金額入力モーダル */
+.price-input-section {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 0.5rem;
+    margin-bottom: 1.5rem;
+}
+
+.price-input-section input {
+    width: 180px;
+    font-size: 2.5rem;
+    font-weight: bold;
+    text-align: right;
+    border: 3px solid var(--blue);
+    border-radius: 12px;
+    padding: 1rem;
+}
+
+.price-input-section .yen {
+    font-size: 2rem;
+    font-weight: bold;
+}
+
+.tax-toggle {
+    background-color: var(--gray-light);
+    border-radius: 12px;
+    padding: 1rem;
+}
+
+.toggle-label {
+    display: flex;
+    align-items: center;
+    gap: 0.8rem;
+    cursor: pointer;
+}
+
+.toggle-label input[type="checkbox"] {
+    width: 24px;
+    height: 24px;
+    cursor: pointer;
+}
+
+.toggle-text {
+    font-size: 1rem;
+}
+
+.tax-result {
+    margin-top: 0.8rem;
+    font-size: 1.1rem;
+    font-weight: bold;
+    color: var(--green);
+    text-align: center;
+}
+
+.add-btn {
+    width: 100%;
+    padding: 1.2rem;
+    background-color: var(--green);
+    color: var(--white);
+    border: none;
+    border-radius: 12px;
+    font-size: 1.3rem;
+    font-weight: bold;
+    cursor: pointer;
+}
+
+.add-btn:active {
+    background-color: #388E3C;
+}
+
+/* アニメーション */
+@keyframes fadeIn {
+    from {
+        opacity: 0;
+        transform: translateY(-10px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+.product-item {
+    animation: fadeIn 0.3s ease;
+}
+
+/* スクロールバー */
+::-webkit-scrollbar {
+    width: 6px;
+}
+
+::-webkit-scrollbar-thumb {
+    background-color: var(--gray);
+    border-radius: 3px;
+}
+
+/* フォーカス状態 */
+input:focus {
+    outline: none;
+    border-color: var(--blue);
+}
+
+button:focus {
+    outline: 2px solid var(--blue);
+    outline-offset: 2px;
+}
+
+/* よく買うもの機能 */
+.store-list,
+.favorite-items-list {
+    display: flex;
+    flex-direction: column;
+    gap: 0.8rem;
+}
+
+.store-item,
+.favorite-item {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 1rem;
+    background-color: var(--gray-light);
+    border-radius: 12px;
+    cursor: pointer;
+    transition: background-color 0.2s;
+}
+
+.store-item:active,
+.favorite-item:active {
+    background-color: #E0E0E0;
+}
+
+.store-item-name,
+.favorite-item-info {
+    font-size: 1.2rem;
+    font-weight: bold;
+}
+
+.favorite-item-info {
+    display: flex;
+    flex-direction: column;
+    gap: 0.2rem;
+}
+
+.favorite-item-name {
+    font-size: 1.1rem;
+    font-weight: bold;
+}
+
+.favorite-item-price {
+    font-size: 1rem;
+    color: var(--blue);
+    font-weight: bold;
+}
+
+.store-item-arrow,
+.favorite-item-add {
+    font-size: 1.5rem;
+    color: var(--gray);
+}
+
+.store-item-delete,
+.favorite-item-delete {
+    background-color: var(--red-light);
+    border: none;
+    border-radius: 8px;
+    padding: 0.5rem 0.8rem;
+    color: var(--red);
+    font-size: 0.9rem;
+    cursor: pointer;
+    margin-left: 0.5rem;
+}
+
+.store-item-delete:active,
+.favorite-item-delete:active {
+    background-color: var(--red);
+    color: var(--white);
+}
+
+.register-btn {
+    width: 100%;
+    padding: 1rem;
+    background-color: var(--gray-light);
+    color: var(--text-dark);
+    border: 2px dashed var(--gray);
+    border-radius: 12px;
+    font-size: 1.1rem;
+    font-weight: bold;
+    cursor: pointer;
+}
+
+.register-btn:active {
+    background-color: #E0E0E0;
+}
+
+.input-group {
+    margin-bottom: 1.5rem;
+}
+
+.input-group label {
+    display: block;
+    font-size: 1rem;
+    font-weight: bold;
+    margin-bottom: 0.5rem;
+    color: var(--text-light);
+}
+
+.input-group input[type="text"] {
+    width: 100%;
+    padding: 1rem;
+    font-size: 1.2rem;
+    border: 2px solid var(--gray-light);
+    border-radius: 12px;
+}
+
+.input-group input[type="text"]:focus {
+    border-color: var(--blue);
+}
+
+.price-input-section.small {
+    justify-content: flex-start;
+    margin-bottom: 0;
+}
+
+.price-input-section.small input {
+    width: 120px;
+    font-size: 1.5rem;
+    padding: 0.8rem;
+}
+
+.price-input-section.small .yen {
+    font-size: 1.2rem;
+}

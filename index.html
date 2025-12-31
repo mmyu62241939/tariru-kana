@@ -1,0 +1,320 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="default">
+    <meta name="theme-color" content="#4CAF50">
+    <title>おかいものサポート</title>
+    <link rel="stylesheet" href="styles.css">
+    <link rel="manifest" href="manifest.json">
+</head>
+<body>
+    <div id="app">
+        <!-- ヘッダー -->
+        <header class="header">
+            <h1>おかいものサポート</h1>
+            <button id="wallet-btn" class="header-btn" aria-label="財布を編集">
+                <img src="images/wallet.png" alt="財布" class="wallet-icon">
+            </button>
+        </header>
+
+        <!-- メイン画面 -->
+        <main class="main-screen" id="main-screen">
+            <!-- 持っているお金の表示 -->
+            <section class="wallet-summary">
+                <div class="wallet-total">
+                    <span class="label">もっているお金</span>
+                    <span class="amount" id="wallet-total-display">0円</span>
+                </div>
+            </section>
+
+            <!-- 買える/買えない表示 -->
+            <section class="status-display" id="status-display">
+                <img src="images/cart.png" alt="" class="status-icon" id="status-icon">
+                <div class="status-text" id="status-text">商品を追加してね</div>
+                <div class="remaining-amount" id="remaining-amount"></div>
+            </section>
+
+            <!-- 商品リスト -->
+            <section class="product-list-section">
+                <h2>かうもの</h2>
+                <ul class="product-list" id="product-list">
+                    <!-- 商品がここに追加される -->
+                </ul>
+                <div class="product-total">
+                    <span>あわせて</span>
+                    <span id="product-total-display">0円</span>
+                </div>
+            </section>
+
+            <!-- 商品追加ボタン -->
+            <div class="add-buttons">
+                <button class="add-product-btn" id="add-product-btn">
+                    + きんがくをついか
+                </button>
+                <button class="favorites-btn" id="favorites-btn">
+                    ⭐ よくかうもの
+                </button>
+            </div>
+
+            <!-- 支払い方法表示 -->
+            <section class="payment-section" id="payment-section" style="display: none;">
+                <h2>だすお金</h2>
+                <div class="payment-list" id="payment-list">
+                    <!-- 支払い方法がここに表示される -->
+                </div>
+                <div class="change-display" id="change-display"></div>
+                <button class="pay-btn" id="pay-btn">おかねをはらう</button>
+            </section>
+        </main>
+
+        <!-- 財布編集モーダル -->
+        <div class="modal" id="wallet-modal">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h2>おさいふのなかみ</h2>
+                    <button class="modal-close" id="wallet-modal-close">&times;</button>
+                </div>
+                <div class="modal-body">
+                    <div class="money-input-group">
+                        <h3>おさつ</h3>
+                        <div class="money-row">
+                            <div class="money-label">
+                                <img src="images/money-10000.png" alt="10000円" class="money-img">
+                                <span class="money-text">10000円</span>
+                            </div>
+                            <div class="counter">
+                                <button class="counter-btn minus" data-money="10000" data-action="minus">−</button>
+                                <input type="number" id="money-10000" value="0" min="0" readonly>
+                                <button class="counter-btn plus" data-money="10000" data-action="plus">＋</button>
+                            </div>
+                        </div>
+                        <div class="money-row">
+                            <div class="money-label">
+                                <img src="images/money-5000.png" alt="5000円" class="money-img">
+                                <span class="money-text">5000円</span>
+                            </div>
+                            <div class="counter">
+                                <button class="counter-btn minus" data-money="5000" data-action="minus">−</button>
+                                <input type="number" id="money-5000" value="0" min="0" readonly>
+                                <button class="counter-btn plus" data-money="5000" data-action="plus">＋</button>
+                            </div>
+                        </div>
+                        <div class="money-row">
+                            <div class="money-label">
+                                <img src="images/money-1000.png" alt="1000円" class="money-img">
+                                <span class="money-text">1000円</span>
+                            </div>
+                            <div class="counter">
+                                <button class="counter-btn minus" data-money="1000" data-action="minus">−</button>
+                                <input type="number" id="money-1000" value="0" min="0" readonly>
+                                <button class="counter-btn plus" data-money="1000" data-action="plus">＋</button>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="money-input-group">
+                        <h3>こぜに</h3>
+                        <div class="money-row">
+                            <div class="money-label">
+                                <img src="images/money-500.png" alt="500円" class="money-img">
+                                <span class="money-text">500円</span>
+                            </div>
+                            <div class="counter">
+                                <button class="counter-btn minus" data-money="500" data-action="minus">−</button>
+                                <input type="number" id="money-500" value="0" min="0" readonly>
+                                <button class="counter-btn plus" data-money="500" data-action="plus">＋</button>
+                            </div>
+                        </div>
+                        <div class="money-row">
+                            <div class="money-label">
+                                <img src="images/money-100.png" alt="100円" class="money-img">
+                                <span class="money-text">100円</span>
+                            </div>
+                            <div class="counter">
+                                <button class="counter-btn minus" data-money="100" data-action="minus">−</button>
+                                <input type="number" id="money-100" value="0" min="0" readonly>
+                                <button class="counter-btn plus" data-money="100" data-action="plus">＋</button>
+                            </div>
+                        </div>
+                        <div class="money-row">
+                            <div class="money-label">
+                                <img src="images/money-50.png" alt="50円" class="money-img">
+                                <span class="money-text">50円</span>
+                            </div>
+                            <div class="counter">
+                                <button class="counter-btn minus" data-money="50" data-action="minus">−</button>
+                                <input type="number" id="money-50" value="0" min="0" readonly>
+                                <button class="counter-btn plus" data-money="50" data-action="plus">＋</button>
+                            </div>
+                        </div>
+                        <div class="money-row">
+                            <div class="money-label">
+                                <img src="images/money-10.png" alt="10円" class="money-img">
+                                <span class="money-text">10円</span>
+                            </div>
+                            <div class="counter">
+                                <button class="counter-btn minus" data-money="10" data-action="minus">−</button>
+                                <input type="number" id="money-10" value="0" min="0" readonly>
+                                <button class="counter-btn plus" data-money="10" data-action="plus">＋</button>
+                            </div>
+                        </div>
+                        <div class="money-row">
+                            <div class="money-label">
+                                <img src="images/money-5.png" alt="5円" class="money-img">
+                                <span class="money-text">5円</span>
+                            </div>
+                            <div class="counter">
+                                <button class="counter-btn minus" data-money="5" data-action="minus">−</button>
+                                <input type="number" id="money-5" value="0" min="0" readonly>
+                                <button class="counter-btn plus" data-money="5" data-action="plus">＋</button>
+                            </div>
+                        </div>
+                        <div class="money-row">
+                            <div class="money-label">
+                                <img src="images/money-1.png" alt="1円" class="money-img">
+                                <span class="money-text">1円</span>
+                            </div>
+                            <div class="counter">
+                                <button class="counter-btn minus" data-money="1" data-action="minus">−</button>
+                                <input type="number" id="money-1" value="0" min="0" readonly>
+                                <button class="counter-btn plus" data-money="1" data-action="plus">＋</button>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="wallet-modal-total">
+                        <span>ごうけい</span>
+                        <span id="wallet-modal-total">0円</span>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button class="save-btn" id="wallet-save-btn">ほぞん</button>
+                </div>
+            </div>
+        </div>
+
+        <!-- 商品金額入力モーダル -->
+        <div class="modal" id="product-modal">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h2>きんがくをにゅうりょく</h2>
+                    <button class="modal-close" id="product-modal-close">&times;</button>
+                </div>
+                <div class="modal-body">
+                    <div class="price-input-section">
+                        <input type="number" id="price-input" placeholder="0" inputmode="numeric" pattern="[0-9]*">
+                        <span class="yen">円</span>
+                    </div>
+                    <div class="tax-toggle">
+                        <label class="toggle-label">
+                            <input type="checkbox" id="tax-toggle" checked>
+                            <span class="toggle-text">税ぬき（10%の税こみにする）</span>
+                        </label>
+                        <div class="tax-result" id="tax-result"></div>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button class="add-btn" id="product-add-btn">ついか</button>
+                </div>
+            </div>
+        </div>
+
+        <!-- お店選択モーダル -->
+        <div class="modal" id="store-modal">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h2>おみせをえらぶ</h2>
+                    <button class="modal-close" id="store-modal-close">&times;</button>
+                </div>
+                <div class="modal-body">
+                    <div class="store-list" id="store-list">
+                        <!-- お店がここに表示される -->
+                    </div>
+                    <div class="empty-message" id="store-empty">
+                        おみせがまだありません
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button class="register-btn" id="add-store-btn">+ おみせをついか</button>
+                </div>
+            </div>
+        </div>
+
+        <!-- 商品選択モーダル -->
+        <div class="modal" id="favorite-items-modal">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h2 id="favorite-items-title">しょうひんをえらぶ</h2>
+                    <button class="modal-close" id="favorite-items-modal-close">&times;</button>
+                </div>
+                <div class="modal-body">
+                    <div class="favorite-items-list" id="favorite-items-list">
+                        <!-- 商品がここに表示される -->
+                    </div>
+                    <div class="empty-message" id="items-empty">
+                        しょうひんがまだありません
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button class="register-btn" id="add-favorite-item-btn">+ しょうひんをついか</button>
+                </div>
+            </div>
+        </div>
+
+        <!-- お店登録モーダル -->
+        <div class="modal" id="register-store-modal">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h2>おみせをとうろく</h2>
+                    <button class="modal-close" id="register-store-modal-close">&times;</button>
+                </div>
+                <div class="modal-body">
+                    <div class="input-group">
+                        <label for="store-name-input">おみせのなまえ</label>
+                        <input type="text" id="store-name-input" placeholder="れい：セブンイレブン">
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button class="add-btn" id="register-store-btn">とうろく</button>
+                </div>
+            </div>
+        </div>
+
+        <!-- 商品登録モーダル -->
+        <div class="modal" id="register-item-modal">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h2>しょうひんをとうろく</h2>
+                    <button class="modal-close" id="register-item-modal-close">&times;</button>
+                </div>
+                <div class="modal-body">
+                    <div class="input-group">
+                        <label for="item-name-input">しょうひんのなまえ</label>
+                        <input type="text" id="item-name-input" placeholder="れい：おにぎり">
+                    </div>
+                    <div class="input-group">
+                        <label for="item-price-input">ねだん</label>
+                        <div class="price-input-section small">
+                            <input type="number" id="item-price-input" placeholder="0" inputmode="numeric">
+                            <span class="yen">円</span>
+                        </div>
+                    </div>
+                    <div class="tax-toggle">
+                        <label class="toggle-label">
+                            <input type="checkbox" id="item-tax-toggle" checked>
+                            <span class="toggle-text">税ぬき（10%の税こみにする）</span>
+                        </label>
+                        <div class="tax-result" id="item-tax-result"></div>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button class="add-btn" id="register-item-btn">とうろく</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script src="app.js"></script>
+</body>
+</html>
