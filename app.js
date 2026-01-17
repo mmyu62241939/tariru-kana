@@ -430,7 +430,7 @@ productModal.addEventListener('click', (e) => {
 taxToggle.addEventListener('change', () => {
     const price = parseInt(priceInput.value) || 0;
     if (taxToggle.checked && price > 0) {
-        const taxIncluded = Math.ceil(price * 1.1);
+        const taxIncluded = Math.round(price * 1.1);
         taxResult.textContent = `→ ${formatMoney(taxIncluded)}（税こみ）`;
     } else {
         taxResult.textContent = '';
@@ -441,7 +441,7 @@ priceInput.addEventListener('input', () => {
     if (taxToggle.checked) {
         const price = parseInt(priceInput.value) || 0;
         if (price > 0) {
-            const taxIncluded = Math.ceil(price * 1.1);
+            const taxIncluded = Math.round(price * 1.1);
             taxResult.textContent = `→ ${formatMoney(taxIncluded)}（税こみ）`;
         } else {
             taxResult.textContent = '';
@@ -459,7 +459,7 @@ productAddBtn.addEventListener('click', () => {
 
     // 税込み計算
     if (taxToggle.checked) {
-        price = Math.ceil(price * 1.1);
+        price = Math.round(price * 1.1);
     }
 
     products.push({
@@ -703,7 +703,7 @@ addFavoriteItemBtn.addEventListener('click', () => {
 itemTaxToggle.addEventListener('change', () => {
     const price = parseInt(itemPriceInput.value) || 0;
     if (itemTaxToggle.checked && price > 0) {
-        const taxIncluded = Math.ceil(price * 1.1);
+        const taxIncluded = Math.round(price * 1.1);
         itemTaxResult.textContent = `→ ${formatMoney(taxIncluded)}（税こみ）`;
     } else {
         itemTaxResult.textContent = '';
@@ -714,7 +714,7 @@ itemPriceInput.addEventListener('input', () => {
     if (itemTaxToggle.checked) {
         const price = parseInt(itemPriceInput.value) || 0;
         if (price > 0) {
-            const taxIncluded = Math.ceil(price * 1.1);
+            const taxIncluded = Math.round(price * 1.1);
             itemTaxResult.textContent = `→ ${formatMoney(taxIncluded)}（税こみ）`;
         } else {
             itemTaxResult.textContent = '';
@@ -750,7 +750,7 @@ registerItemBtn.addEventListener('click', () => {
 
     // 税込み計算
     if (itemTaxToggle.checked) {
-        price = Math.ceil(price * 1.1);
+        price = Math.round(price * 1.1);
     }
 
     const store = stores.find(s => s.id === currentStoreId);
